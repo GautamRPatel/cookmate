@@ -1,0 +1,63 @@
+# -------------------
+# Python
+# -------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pyt
+*.pyi
+
+# -------------------
+# Virtual Environment
+# -------------------
+ecomfastapi/
+venv/
+ENV/
+env/
+*.egg-info/
+
+# -------------------
+# Byte-compiled / Cache
+# -------------------
+*.so
+*.dylib
+*.dll
+*.egg
+*.log
+
+# -------------------
+# VSCode / IDE
+# -------------------
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# -------------------
+# Mac / Windows system files
+# -------------------
+.DS_Store
+Thumbs.db
+
+# -------------------
+# FastAPI / Uploaded files
+# -------------------
+app/static/uploads/
+*.sqlite3
+*.db
+
+# -------------------
+# YOLO / ML models
+# -------------------
+*.pt
+*.onnx
+*.weights
+*.h5
+
+# -------------------
+# Pip
+# -------------------
+pip-log.txt
+pip-delete-this-directory.txt
