@@ -51,7 +51,7 @@ app/static/uploads/
 # -------------------
 # YOLO / ML models
 # -------------------
-*.pt
+
 *.onnx
 *.weights
 *.h5

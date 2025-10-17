@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 
 # Load YOLOv8 model
-model = YOLO("E:\\Mega Project\\yolov8\\cookmate-master\\app\\models\\best.pt")
+model = YOLO("best.pt")
 
 def model_predict(image_path: str):
     results = model(image_path)
