@@ -1,8 +1,9 @@
 from ultralytics import YOLO
-import torch
+import os
 
 # Load YOLOv8 model
-model = YOLO("app\\models\\best.pt")
+model_path = os.path.join("app", "models", "best.pt")
+model = YOLO(model_path)
 
 def model_predict(image_path: str):
     results = model(image_path)
