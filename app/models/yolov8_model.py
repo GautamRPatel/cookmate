@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 
 # Load YOLOv8 model
-model = YOLO("best.pt")
+model = YOLO("app\models\best.pt")
 
 def model_predict(image_path: str):
     results = model(image_path)
