@@ -2,8 +2,7 @@ from ultralytics import YOLO
 import torch
 
 # Load YOLOv8 model
-device = "cuda" if torch.cuda.is_available() else "cpu"
-model = YOLO("app\models\best.pt")
+model = YOLO("app\\models\\best.pt")
 
 def model_predict(image_path: str):
     results = model(image_path)
