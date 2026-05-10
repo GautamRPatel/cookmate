@@ -5,6 +5,7 @@ import shutil
 import uuid
 import os
 from functools import lru_cache
+from fastapi import HTTPException
 
 router = APIRouter()
 
@@ -22,21 +23,39 @@ def get_recipe_engine():
 
 @router.post("/predict")
 async def predict_image(file: UploadFile = File(...)):
-    # Save uploaded image temporarily
     file_path = os.path.join(UPLOAD_DIR, f"{uuid.uuid4()}_{file.filename}")
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(file.file, buffer)
+    try:
+        # Save uploaded image temporarily
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
 
-    # Run model prediction
-    vegetables = model_predict(file_path)
+        # Run model prediction
+        vegetables = model_predict(file_path)
 
+        print("Vegetables" , vegetables)
 
-    # Delete image after prediction
-    os.remove(file_path)
+        if not vegetables:
+            raise HTTPException(
+                status_code=400,
+                detail="Invalid image, Please upload image related to vegetables"
+            )
 
-    return {
-        "detected_vegetables": vegetables,
-        "top_3_recipes": get_recipe_engine().get_best_recipes(vegetables)
-    }
-
+        return {
+            "detected_vegetables": vegetables,
+            "top_3_recipes": get_recipe_engine().get_best_recipes(vegetables)
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"Error in predict_image: {str(e)}")
+        raise HTTPException(
+            status_code=500,
+            detail="Internal server error"
+        )
+    finally:
+        if os.path.exists(file_path):
+            try:
+                os.remove(file_path)
+            except OSError:
+                pass
    
