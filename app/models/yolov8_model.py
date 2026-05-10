@@ -1,11 +1,17 @@
 from ultralytics import YOLO
 import os
+from functools import lru_cache
 
-# Load YOLOv8 model
-model_path = os.path.join("app", "models", "best.pt")
-model = YOLO(model_path)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+MODEL_PATH = os.path.join(BASE_DIR, "app", "models", "best.pt")
+
+
+@lru_cache(maxsize=1)
+def get_model():
+    return YOLO(MODEL_PATH)
 
 def model_predict(image_path: str):
+    model = get_model()
     results = model(image_path)
     result = results[0]  
 
